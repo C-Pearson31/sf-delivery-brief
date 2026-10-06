@@ -1,0 +1,14 @@
+{
+  "name": "sf-delivery-brief",
+  "description": "Salesforce delivery plugins by Chris Pearson.",
+  "owner": {
+    "name": "Chris Pearson"
+  },
+  "plugins": [
+    {
+      "name": "sf-delivery-brief",
+      "source": "./",
+      "description": "Jira ticket in, one-minute Salesforce solution brief out. Reuse-first impact analysis (DX0) + Salesforce Docs check when it matters + 2-3 options with a recommendation."
+    }
+  ]
+}

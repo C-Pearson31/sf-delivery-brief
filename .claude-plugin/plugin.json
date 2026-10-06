@@ -1,0 +1,18 @@
+{
+  "name": "sf-delivery-brief",
+  "version": "0.7.0",
+  "description": "Turns a Jira ticket into a one-minute Salesforce solution brief grounded in your real org: onboarding (default org, role, Jira projects, project instructions), reuse-first impact analysis via read-only DX0, a plain 'how far I looked' coverage note, and 2-3 options with a recommendation. Bundles the Atlassian and DX0 connectors. Agents accelerate. Humans decide.",
+  "author": {
+    "name": "Chris Pearson"
+  },
+  "license": "MIT",
+  "keywords": [
+    "salesforce",
+    "jira",
+    "impact-analysis",
+    "dx0",
+    "solution-design",
+    "delivery"
+  ],
+  "skills": "./skills/"
+}
