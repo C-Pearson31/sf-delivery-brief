@@ -1,0 +1,14 @@
+{
+  "name": "altean",
+  "description": "Salesforce delivery plugins by Chris Pearson.",
+  "owner": {
+    "name": "Chris Pearson"
+  },
+  "plugins": [
+    {
+      "name": "altean",
+      "source": "./",
+      "description": "Jira ticket in, one-minute Salesforce solution brief out. Jira + Confluence + read-only DX0 + read-only Salesforce record checks when needed, then 2-3 options with a recommendation."
+    }
+  ]
+}

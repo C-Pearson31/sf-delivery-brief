@@ -1,0 +1,16 @@
+{
+  "name": "altean",
+  "version": "1.0.0",
+  "description": "Four connectors, one Salesforce analyst. Turns a Jira ticket into a one-minute solution brief grounded in your real org: Jira for the ask, Confluence for prior decisions, read-only DX0 for what exists and what breaks, and a read-only Salesforce connection for record checks only when they change the answer. Agents accelerate. Humans decide.",
+  "author": {
+    "name": "Chris Pearson"
+  },
+  "license": "MIT",
+  "keywords": ["salesforce", "jira", "confluence", "dx0", "impact-analysis", "solution-design", "delivery"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Altean",
+    "shortDescription": "Jira ticket in, org-grounded Salesforce solution brief out.",
+    "category": "Developer Tools"
+  }
+}
