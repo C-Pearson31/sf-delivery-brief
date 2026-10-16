@@ -128,7 +128,7 @@ That's the evidence a person would spend an hour collecting, and it took 3 recor
    - **Claude Cowork / claude.ai:** download this repo (**Code → Download ZIP**), then Customize → Plugins → Add → Upload plugin.
    - **Claude Code:**
      ```
-     /plugin marketplace add C-Pearson31/altean
+     /plugin marketplace add C-Pearson31/sf-delivery-brief
      /plugin install altean@altean
      ```
      Or load a local copy for one session: `claude --plugin-dir ./altean`.
