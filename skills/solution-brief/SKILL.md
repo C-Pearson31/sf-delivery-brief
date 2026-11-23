@@ -1,6 +1,6 @@
 ---
 name: solution-brief
-description: Final render step of the Altean analysis, loaded by `analyze` (including on follow-ups like simplify, what?, developer view, draft or post the comment). Applies an expert self-check, then renders the answer for the chosen mode — cause-and-fix, expected-vs-built, confirm-or-correct, build-options, impact, data or readout — with a 150-word plain top section, a "For your developer:" line, owner-split actions and a proposed Jira comment marked not posted. Do not run it directly from a user request; route through `analyze` so org and mode are set first.
+description: "Final render step of the Altean analysis, loaded by `analyze` (including on follow-ups like simplify, what?, developer view, draft or post the comment). Applies an expert self-check, then renders the answer for the chosen mode — cause-and-fix, expected-vs-built, confirm-or-correct, build-options, impact, data or readout — with a 150-word plain top section, a \"For your developer:\" line, owner-split actions and a proposed Jira comment marked not posted. Do not run it directly from a user request; route through `analyze` so org and mode are set first."
 ---
 
 # Solution Brief

@@ -3,8 +3,11 @@
   "version": "1.2.0",
   "description": "Salesforce analyst grounded in your real org. Reads the ticket (Jira, Confluence), checks what's built (read-only DX0) and proves the cause in the data (read-only Salesforce). Leads with root cause and fix, tests your read, compares what the ticket expects with what's built, sizes impact, lists records to repair, and drafts the Jira comment. Options only when you're designing something new.",
   "author": {
-    "name": "Chris Pearson"
+    "name": "Chris Pearson",
+    "url": "https://github.com/C-Pearson31"
   },
+  "homepage": "https://github.com/C-Pearson31/sf-delivery-brief",
+  "repository": "https://github.com/C-Pearson31/sf-delivery-brief",
   "license": "MIT",
   "keywords": [
     "salesforce",
@@ -16,11 +19,24 @@
     "delivery"
   ],
   "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Altean",
-    "shortDescription": "Ticket in, proven root cause and fix out, grounded in your real org.",
-    "category": "Developer Tools",
+    "shortDescription": "Org-grounded Salesforce triage",
     "longDescription": "Altean is a read-only Salesforce delivery analyst. Give it a Jira or service-desk ticket, a file of record Ids, or a question. It reads the ticket and any Confluence decisions, checks what is built in your org with DX0 (metadata, flows, Apex, dependencies), and proves the cause in the data with a read-only Salesforce connection (field history, counts, records to repair). Bugs get the root cause, fix, data fix and confidence in plain language, with a line for your developer. Tickets that state an expected value get an expected-vs-built gap table. It tests your own read before offering its own, splits actions by who does them, picks production or your test sandbox from context, and drafts a Jira comment without posting it. Options and a recommendation appear only for new builds. It never changes records and never writes to Jira or Confluence unless you ask.",
-    "developerName": "Chris Pearson"
+    "developerName": "Chris Pearson",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/C-Pearson31/sf-delivery-brief",
+    "defaultPrompt": [
+      "Analyze PROJ-123 and tell me the root cause and fix",
+      "Why is this field being cleared on these records?",
+      "Where is this field used, and is it safe to delete?"
+    ],
+    "brandColor": "#1F4E79",
+    "composerIcon": "./assets/composer-icon.png",
+    "logo": "./assets/logo.png"
   }
 }

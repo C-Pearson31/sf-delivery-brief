@@ -119,6 +119,7 @@ That's the evidence a person would spend an hour collecting, and it took 3 recor
      /plugin install altean@altean
      ```
      Or load a local copy for one session: `claude --plugin-dir ./altean`.
+   - **ChatGPT / Codex:** upload a zip with this folder as its single top-level folder (e.g. `altean/…`). ChatGPT doesn't import bundled MCP servers from a zip, so connect Atlassian, DX0 and your Salesforce read-only connection as connectors in ChatGPT.
 2. **Connect Atlassian and DX0** on the plugin's Connectors tab. Both are bundled in `.mcp.json`; sign in once. For DX0, connect your org(s) at [dx0.io](https://dx0.io) first.
 3. **Run `/altean:onboard`.** It sets your default org and test sandbox, matches each Salesforce read-only connection to its org, and sets your role (admin, developer, business user or consultant), your Jira and support-desk projects, Confluence spaces and who acts on fixes, and gives you project instructions to paste into a Cowork or claude.ai project.
 
@@ -193,7 +194,8 @@ No hard call cap. Altean keeps checking until the cause is proven or disproven, 
 ## Structure
 ```
 .claude-plugin/       plugin + marketplace manifests (Claude Cowork / Claude Code)
-.codex-plugin/        Codex manifest
+.codex-plugin/        Codex / ChatGPT manifest
+assets/               logo and composer icon (ChatGPT / Codex)
 .mcp.json             Atlassian + DX0 connectors
 skills/
   analyze/            entry point: principles, ticket + comments + attachments, org by cue, mode, verify loop, follow-ups

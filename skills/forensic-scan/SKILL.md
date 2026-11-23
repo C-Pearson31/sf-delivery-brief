@@ -1,6 +1,6 @@
 ---
 name: forensic-scan
-description: Forensic step of the Altean analysis, loaded by `analyze` after the org and mode are set (and again on follow-ups that need a new check). Verifies names, runs the reuse sweep, finds every writer of a field (including managed-package config, custom metadata rules and integration users), runs three-pass impact analysis, proves or disproves the cause with field history and record checks on the matching read-only connector, compares expected vs built, sizes impact and lists records to repair. Do not run it directly from a user request; route through `analyze`.
+description: "Forensic step of the Altean analysis, loaded by `analyze` after the org and mode are set (and again on follow-ups that need a new check). Verifies names, runs the reuse sweep, finds every writer of a field (including managed-package config, custom metadata rules and integration users), runs three-pass impact analysis, proves or disproves the cause with field history and record checks on the matching read-only connector, compares expected vs built, sizes impact and lists records to repair. Do not run it directly from a user request; route through `analyze`."
 ---
 
 # Forensic Scan
