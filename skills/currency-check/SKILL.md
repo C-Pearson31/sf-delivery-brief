@@ -14,7 +14,7 @@ One job: the user should never find out later that a better, newer, or safer way
 | **radar** | 1 | "Is there a better or newer way, or a retirement notice, for this one area?" Results go to **Worth knowing**. |
 | **deep** | ≤ 2 | Can change the options and the recommendation. |
 
-Docs queries have their own allowance, separate from the DX0 budget. Check each feature area at most once per session and reuse the answer.
+Docs queries are counted separately from DX0 and record calls. Check each feature area at most once per session and reuse the answer.
 
 ## Ask narrow questions
 - Radar: "Current recommended approach, and any retirement notice, for {feature} as of the latest release?"
@@ -32,3 +32,6 @@ With a high blast radius (many dependents, production-critical automation, exter
 
 ## Return
 At most 2 notes for deep and 1 for radar. Each has What, Class, Why not now (for worth knowing), and Source (URL). If the radar finds nothing, return nothing.
+
+## Relevance gate (before returning)
+Return a note only if it changes the fix, the recommendation, or a risk the user would walk into **for this request**. A true but generic note is dropped. For a cause-and-fix answer, a note must touch the cause or the fix. When run as a follow-up ("check docs"), the answer shows only the notes and one line on whether they change it, never a full re-render. Nothing relevant: return "Docs check: nothing that changes the answer."
