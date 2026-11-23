@@ -19,6 +19,8 @@
   "interface": {
     "displayName": "Altean",
     "shortDescription": "Ticket in, proven root cause and fix out, grounded in your real org.",
-    "category": "Developer Tools"
+    "category": "Developer Tools",
+    "longDescription": "Altean is a read-only Salesforce delivery analyst. Give it a Jira or service-desk ticket, a file of record Ids, or a question. It reads the ticket and any Confluence decisions, checks what is built in your org with DX0 (metadata, flows, Apex, dependencies), and proves the cause in the data with a read-only Salesforce connection (field history, counts, records to repair). Bugs get the root cause, fix, data fix and confidence in plain language, with a line for your developer. Tickets that state an expected value get an expected-vs-built gap table. It tests your own read before offering its own, splits actions by who does them, picks production or your test sandbox from context, and drafts a Jira comment without posting it. Options and a recommendation appear only for new builds. It never changes records and never writes to Jira or Confluence unless you ask.",
+    "developerName": "Chris Pearson"
   }
 }
