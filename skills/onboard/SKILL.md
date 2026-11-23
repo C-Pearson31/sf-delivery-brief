@@ -1,6 +1,6 @@
 ---
 name: onboard
-description: One-time personalization for Altean. Checks the connectors, lists the user's connected Salesforce orgs and recommends a production default plus a test sandbox, matches each Salesforce read-only connector to its org, asks the user's role, their Jira project(s) and support-desk project(s), Confluence space(s), who acts on fixes, and whether they have a voice skill for comments, then writes short copy-ready project instructions. Use when the user says "set me up", "onboard", "personalize", "write my project instructions", "change my role", "change my default org", "change my test org", "change my Jira project", "change my Confluence space", or right after installing the plugin.
+description: "One-time personalization for Altean. Checks the connectors, lists the user's connected Salesforce orgs and recommends a production default plus a test sandbox, matches each Salesforce read-only connector to its org, asks the user's role, their Jira project(s) and support-desk project(s), Confluence space(s), who acts on fixes, and whether they have a voice skill for comments, then writes short copy-ready project instructions. Use when the user says \"set me up\", \"onboard\", \"personalize\", \"write my project instructions\", \"change my role\", \"change my default org\", \"change my test org\", \"change my Jira project\", \"change my Confluence space\", or right after installing the plugin."
 ---
 
 # Onboard

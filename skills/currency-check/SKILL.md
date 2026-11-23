@@ -1,6 +1,6 @@
 ---
 name: currency-check
-description: Runs a radar (1 query) or deep (up to 2 queries) Salesforce release-currency check against official Salesforce documentation via web search, to surface better, newer, or retiring ways to solve the problem without pushing a change. Loaded by `analyze` only when a docs check is needed, or when the user asks "check docs", "is there a better way", "is this still the right way", "did Salesforce ship something for this", or "any release changes we should know about".
+description: "Runs a radar (1 query) or deep (up to 2 queries) Salesforce release-currency check against official Salesforce documentation via web search, to surface better, newer, or retiring ways to solve the problem without pushing a change. Loaded by `analyze` only when a docs check is needed, or when the user asks \"check docs\", \"is there a better way\", \"is this still the right way\", \"did Salesforce ship something for this\", or \"any release changes we should know about\"."
 ---
 
 # Currency Check
