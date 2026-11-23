@@ -5,7 +5,7 @@ Tool costs, argument names, and gotchas, taken from live probing. The catalog is
 ## Calling pattern
 DX0 is read-only: no tool here writes to Salesforce.
 - `dx0_get_connections({ readyOnly: true })`: once per session.
-- `dx0_discover({ connectionIds })` for the catalog, then `dx0_discover({ tools: [ids] })` for the full spec of each tool before its first execution in a session. Discovery calls are free against the budget. The shapes below are hints; the live spec wins.
+- `dx0_discover({ connectionIds })` for the catalog, then `dx0_discover({ tools: [ids] })` for the full spec of each tool before its first execution in a session. Discovery calls don't count toward the ask-first threshold. The shapes below are hints; the live spec wins.
 - Never guess connection ids, tool schemas, object names, or field names.
 - Check `get_index_status` for recent-change questions, unexpected misses, or before searching a folder that may not be indexed. An unindexed type is never proof of absence.
 - Large results are truncated. Say so, and never call a truncated list complete.
@@ -29,7 +29,7 @@ DX0 is read-only: no tool here writes to Salesforce.
 | Content-mode `search_metadata` over a whole folder | **heavy** | Avoid, especially `Flow/` | |
 | `search_impact` on a hugely referenced field (e.g. `Account.Name`) | **fails** | Never. Exceeds the 5MB output limit. | |
 
-DX0 guides (`dx0_get_skill`): load only when the brief will contain that artifact. Use `SOQL` before writing any query (record check or Evidence request), `ImpactAnalysis` for rename/delete questions, and `ApexTriggers` / `ApexTesting` / `Formulas` when proposing that code. Load each once per session.
+DX0 guides (`dx0_get_skill`): `ImpactAnalysis` for where-used/rename/delete, `OrgConfigSources` for what a status or setting does, `ApexTriggers`/`ApexTesting` before proposing that code, `CPQ` when `SBQQ__` is in scope; `SOQL`/`SOSL`/`Formulas` only when a query or formula misbehaves. Once per topic per session.
 
 ## Record data
 - **DX0 MCP:** no free-form SOQL. DX0's own SOQL guide says its MCP tools don't run it. What it does return for free:
@@ -44,11 +44,11 @@ Tool names come from the Salesforce hosted MCP and may carry a server prefix. Te
 
 | Tool | Use for | Notes |
 |---|---|---|
-| `getUserInfo` | Org match, once per session (free) | Returns `username`, profile, role, locale. **No org Id or instance URL.** Match `username` to the DX0 connection's `sublabel`. |
+| `getUserInfo` | Org match, once per connector per session (free) | Returns `username` and admin-set defaults; may include the instance URL (use it for Lightning links; if absent, give relative paths). Match `username` to the DX0 connection's `sublabel`. |
 | `soqlQuery(q)` | Snapshot, size, history, repair list, live state | Always `WHERE` + `LIMIT`. Max 50,000 rows per transaction. |
 | `find(q)` | A record number or name with no Id | SOSL; max 2,000 rows; `RETURNING {Object}(Id) LIMIT 5`. |
-| `getObjectSchema(objects)` | Field API names, picklist values, descriptions, help text | One object per call. Output is large. With no argument it returns the list of queryable objects. |
-| `getRelatedRecords(sobject-name, id, relationship-path)` | Children of one record | Use the relationship name (e.g. `Opportunities`, `Revenue_Lines__r`). |
+| `getObjectSchema(objects)` | Field API names, picklist values, descriptions, help text, admin data-quality guidance | One or more objects, comma-separated. Output is large: grep it rather than reading it whole. With no argument it returns the list of queryable objects. Call it on the same connector before any SOQL on that object. |
+| `getRelatedRecords(sobject-name, id, relationship-path)` | Children of one record | Use the relationship name (e.g. `Opportunities`, `Contacts`, `{Custom}__r`). |
 | `listRecentSobjectRecords(sobject-name)` | Rarely; "the record I was just looking at" | Up to 2,000 rows. |
 
 ## Traps (each one failed in a live test)
@@ -68,13 +68,26 @@ Tool names come from the Salesforce hosted MCP and may carry a server prefix. Te
 - `path` takes ONE folder; there is no exclude option. Custom metadata records (`*__mdt`) are not indexed; find them via the Apex that reads them.
 - The `Report` folder may not be indexed. Check `get_index_status` before searching reports.
 
+## DX0 coverage gaps
+DX0 doesn't index CallCenter XML, SoftphoneLayout, Connected Apps, Reports/Dashboards or managed-package Apex internals, and doesn't return Custom Metadata record values or managed-package config records (query those on the record connector). Name the gap whenever it matters.
+
+## More traps
+- Several record connectors (production plus sandboxes) use the same tool names under different server prefixes. Always use the one whose `getUserInfo` username matches the DX0 connection being analyzed.
+- Sandbox schema can differ from production (fields that exist only in one). Check schema in the org you query.
+- Sandbox SOSL indexes can lag: if `find` returns nothing for a value you expect, retry with SOQL on a Name or external-Id filter.
+- `OpportunityFieldHistory` only holds tracked fields; zero rows on a tracked field means the value was never set and cleared.
+- Managed-package config (e-signature field mappings and templates, CPQ price rules) lives in records, not indexed metadata: query it.
+- `__mdt` records and some setup objects may not be queryable through the record connector (no Tooling API). Test once; if blocked, draft the query.
+- No Flow or setup-metadata access through the record connector, and it can't read ApexLog bodies: when only a debug log can settle the cause, ask the user for it.
+- Text formula "booleans" return the strings "True"/"False"; compare as text.
+
 ## Gotchas from live runs
 - **Validation rules:** check them on "can't save" or "can't change stage" symptoms. A live run missed one by looking only at Flows and Apex.
 - **Writers of a field:** for "reverts" bugs, search Apex as well as Flows. A live ground truth was an Apex trigger path (a `before upsert` method forcing a stage), not the Flows an analyst first suspected.
 - **Inactive triggers:** `signal_multipleTriggers` reports them as critical. Ignore `status: Inactive`.
-- **Labels aren't API values:** UI labels, batch names and display combinations (e.g. "Renewal/Won") often have zero metadata hits. Search for the API value or the code that sets it.
+- **Labels aren't API values:** UI labels, batch names and display combinations ("New/Won") often have zero metadata hits. Search for the API value or the code that sets it.
 - **Integration logic:** when the change lives in middleware, an empty search is expected. Say so.
 - **Managed packages:** namespaced objects hide their internals.
 - **The snapshot is current state:** for closed tickets, the fix may already be in the indexed code.
-- **Missed reuse is the costliest mistake:** in testing, the worst designs proposed a new batch or field when an existing flow, rollover batch, or metadata-driven updater already did the job. Run the reuse sweep before anything else.
-- **Picklist mismatch:** report and Apex filters often hard-code values (e.g. `Type = 'Renewed'`) that a record type never uses. On "missing from report" bugs, compare the hard-coded values with the values the records actually hold.
+- **Missed reuse is the costliest mistake:** in testing, the worst designs proposed a new batch or field when an existing flow, batch job, or metadata-driven updater already did the job. Run the reuse sweep before anything else.
+- **Picklist mismatch:** report and Apex filters often hard-code values (e.g. `Type = 'New Business'`) that a record type never uses. On "missing from report" bugs, compare the hard-coded values with the values the records actually hold.
